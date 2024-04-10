@@ -44,7 +44,7 @@ const TransactionCard = ({
             </div>
             <div>
                 {tag &&
-                    <div className={"text-xs font-bold border rounded p-1 bg-blue-300"}>
+                    <div className={"text-xs font-bold border border-blue-300 rounded p-1 bg-blue-50"}>
                         {tag}
                     </div>
                 }

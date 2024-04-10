@@ -34,6 +34,10 @@ export const useGetTransactionsQuery = (yearMonth: string) => {
         onError: (err) => {
             if (err?.response?.status === 401) {
                 router.push("/login");
+            } else if (err?.response?.data?.message != undefined) {
+                toast.error(err.response.data.message)
+            } else {
+                toast.error(err.message)
             }
         },
     });
@@ -61,6 +65,10 @@ export const useGetTransactionsSummaryQuery = (yearMonth: string) => {
         onError: (err) => {
             if (err?.response?.status === 401) {
                 router.push("/login");
+            } else if (err?.response?.data?.message != undefined) {
+                toast.error(err.response.data.message)
+            } else {
+                toast.error(err.message)
             }
         },
     });
@@ -70,7 +78,12 @@ export const useGetTransactionsSummaryQuery = (yearMonth: string) => {
 
 export const createTransaction = async (body: CreateTransactionRequest): Promise<void> => {
     if (body.description == "") body.description = undefined
-    await api.post<TransactionId>(`/transactions`, body);
+    const promise = api.post<TransactionId>(`/transactions`, body);
+
+    await toast.promise(promise, {
+        success: "Gasto adicionado!",
+        error: "Erro adicionando gasto!",
+    });
 }
 
 export const useCreateTransactionMutation = () => {
@@ -95,6 +108,8 @@ export const useCreateTransactionMutation = () => {
             if (err?.response?.status === 401) {
                 router.push("/login");
             } else if (err?.response?.data?.message != undefined) {
+                toast.error(err.response.data.message)
+            } else {
                 toast.error(err.message)
             }
         },
@@ -128,6 +143,8 @@ export const useDeleteTransactionMutation = () => {
             if (err?.response?.status === 401) {
                 router.push("/login");
             } else if (err?.response?.data?.message != undefined) {
+                toast.error(err.response.data.message)
+            } else {
                 toast.error(err.message)
             }
         },
@@ -157,6 +174,8 @@ export const useGetTransactionMonthsQuery = () => {
             if (err?.response?.status === 401) {
                 router.push("/login");
             } else if (err?.response?.data?.message != undefined) {
+                toast.error(err.response.data.message)
+            } else {
                 toast.error(err.message)
             }
         },

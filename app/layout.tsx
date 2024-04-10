@@ -30,8 +30,7 @@ export default function RootLayout({
                 rtl={false}
                 pauseOnFocusLoss
                 draggable
-                pauseOnHover
-                theme="dark"
+                theme="light"
                 transition={Slide}
             />
             </body>

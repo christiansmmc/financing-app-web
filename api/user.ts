@@ -5,6 +5,7 @@ import {useMutation} from "react-query";
 import {AxiosError} from "axios";
 import {RequestError} from "@/types/request";
 import {setToken} from "@/utils/authUtils";
+import {toast} from "react-toastify";
 
 export const login = async (body: LoginRequest): Promise<LoginResponse> => {
     const {data} = await api.post(`/authenticate`, body)
@@ -26,7 +27,14 @@ export const useLoginMutation = () => {
         onSuccess: (data: LoginResponse) => {
             setToken(data.token)
             router.push("/dashboard")
-        }
+        },
+        onError: (err) => {
+            if (err?.response?.data?.message != undefined) {
+                toast.error(err.response.data.message)
+            } else {
+                toast.error(err.message)
+            }
+        },
     });
 
     return {mutate};
@@ -51,7 +59,14 @@ export const useRegisterMutation = () => {
         mutationFn: (data: RegisterRequest) => register(data),
         onSuccess: () => {
             router.push("/login")
-        }
+        },
+        onError: (err) => {
+            if (err?.response?.data?.message != undefined) {
+                toast.error(err.response.data.message)
+            } else {
+                toast.error(err.message)
+            }
+        },
     });
 
     return {mutate};
