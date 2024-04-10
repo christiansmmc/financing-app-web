@@ -7,8 +7,7 @@ const createApiInstance = (): AxiosInstance => {
     instance.defaults.baseURL = process.env.NEXT_PUBLIC_API_BASE_URL;
 
     instance.interceptors.request.use((config) => {
-        // const token = getToken();
-        const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJjc2VxdWVpcmExNTNAZ21haWwuY29tIiwiZXhwIjoxNzExNDk5NTE4fQ.IR6K8VZI3QKzY40YJKhDXWNud7sDz3fbtrhnOpZftyg";
+        const token = getToken();
 
         if (token) {
             config.headers.setAuthorization(`Bearer ${token}`);
