@@ -40,7 +40,7 @@ const TransactionCard = ({
             </div>
             <div className={"flex-1"}>
                 <div>{capitalize(name)}</div>
-                <div className={"text-xs"}>{capitalize(description ?? "")}</div>
+                <div className={"text-xs hidden md:block lg:hidden xl:block"}>{capitalize(description ?? "")}</div>
             </div>
             <div>
                 {tag &&
