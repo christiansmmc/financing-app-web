@@ -9,7 +9,15 @@ import {GetTagsResponse} from "@/types/tags";
 
 export const getTags = async (): Promise<GetTagsResponse[]> => {
     const {data} = await api.get(`/tags`)
-    return data
+    return data.sort((a: GetTagsResponse, b: GetTagsResponse) => {
+        if (a.name === "Outros") {
+            return 1;
+        }
+        if (b.name === "Outros") {
+            return -1;
+        }
+        return a.name.localeCompare(b.name);
+    });
 }
 
 export const useGetTagsQuery = () => {

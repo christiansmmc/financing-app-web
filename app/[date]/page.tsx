@@ -20,10 +20,11 @@ import {useRouter} from "next/navigation";
 import Cookies from "js-cookie";
 import {useGetTagsQuery} from "@/api/tags";
 import {useState} from "react";
-import {toast} from "react-toastify";
+import Combobox from "@/components/filter/Combobox";
 
 export default function Page({params}: { params: { date: string } }) {
     const [tag, setTag] = useState("0")
+    const [filterValue, setFilterValue] = useState("")
 
     const router = useRouter();
 
@@ -119,10 +120,10 @@ export default function Page({params}: { params: { date: string } }) {
                 </div>
             </header>
             <div className={"flex flex-col my-10 " +
-                "xl:flex-row xl:overflow-auto xl:justify-center"}>
+                "lg:flex-row lg:overflow-auto lg:justify-center"}>
                 <div className={"flex flex-col items-center " +
                     "md:gap-5 " +
-                    "xl:my-10 xl:w-1/2 xl:items-end xl:pr-20"}>
+                    "lg:my-10 lg:w-1/2 lg:items-end lg:pr-5 xl:pr-20"}>
                     <div
                         className={"flex flex-col justify-center items-center border-t border-b border-gray-300 w-full h-64 rounded " +
                             "md:w-5/6 md:border md:shadow-md " +
@@ -229,8 +230,8 @@ export default function Page({params}: { params: { date: string } }) {
                             </div>
                             {createTransactionIsLoading
                                 ?
-                                <Button disabled>
-                                    <Loader2 className="mr-2 h-4 w-4 animate-spin"/>
+                                <Button disabled className={"mt-5"}>
+                                    <Loader2 className="animate-spin"/>
                                 </Button>
                                 :
                                 <Button className={"text-md mt-5 lg:w-1/3"}>Adicionar gasto</Button>
@@ -238,9 +239,18 @@ export default function Page({params}: { params: { date: string } }) {
                         </div>
                     </form>
                 </div>
-                <div className={"flex justify-center " +
-                    "xl:w-1/2 xl:justify-normal xl:pl-20"}>
-                    <ScrollArea type={"always"} className="max-h-96 w-full gap-2 px-3 my-10
+                <div className={"flex flex-col justify-center " +
+                    "lg:w-1/2 lg:justify-normal lg:pl-5 xl:pl-20"}>
+                    <div className={"px-3 mt-10 mb-3"}>
+                        <Combobox tagList={tagsData || []} value={filterValue} onChange={setFilterValue}/>
+                        {
+                            filterValue !== "" &&
+                            <Button variant={"outline"} className={"ml-2"} onClick={() => setFilterValue("")}>
+                                X
+                            </Button>
+                        }
+                    </div>
+                    <ScrollArea type={"always"} className="max-h-96 w-full gap-2 px-3 mb-10
                     lg:max-h-screen
                     2xl:w-3/4">
                         {transactionsData?.length === 0 &&
@@ -250,7 +260,13 @@ export default function Page({params}: { params: { date: string } }) {
                                 Crie novos gastos para aparecerem aqui
                             </div>}
                         {transactionsData
-                            ?.sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime())
+                            ?.filter(transaction => {
+                                if (filterValue === "") {
+                                    return true
+                                }
+                                return transaction.tag.name === filterValue
+                            })
+                            .sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime())
                             .map((transaction, index) => {
                                 return <TransactionCard
                                     key={index}
