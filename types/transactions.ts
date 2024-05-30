@@ -16,7 +16,7 @@ export interface GetTransactionResponse {
     description?: string,
     value: number,
     type: TransactionType
-    date: Date,
+    transaction_date: Date,
     tag: TagGetTranscationResponse
 }
 
@@ -25,8 +25,8 @@ export interface CreateTransactionRequest {
     description: string | undefined,
     value: number,
     type: TransactionType,
-    date?: string,
-    tag?: TagId
+    transaction_date?: string,
+    tag_id?: number
 }
 
 export interface GetTransactionSummaryResponse {

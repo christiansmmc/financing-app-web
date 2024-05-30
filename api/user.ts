@@ -8,7 +8,7 @@ import {setToken} from "@/utils/authUtils";
 import {toast} from "react-toastify";
 
 export const login = async (body: LoginRequest): Promise<LoginResponse> => {
-    const {data} = await api.post(`/authenticate`, body)
+    const {data} = await api.post(`/login`, body)
     return data
 }
 
@@ -25,12 +25,12 @@ export const useLoginMutation = () => {
     >({
         mutationFn: (data: LoginRequest) => login(data),
         onSuccess: (data: LoginResponse) => {
-            setToken(data.token)
+            setToken(data.access_token)
             router.push("/dashboard")
         },
         onError: (err) => {
-            if (err?.response?.data?.message != undefined) {
-                toast.error(err.response.data.message)
+            if (err?.response?.data?.detail != undefined) {
+                toast.error(err.response.data.detail)
             } else {
                 toast.error(err.message)
             }
@@ -61,8 +61,8 @@ export const useRegisterMutation = () => {
             router.push("/login")
         },
         onError: (err) => {
-            if (err?.response?.data?.message != undefined) {
-                toast.error(err.response.data.message)
+            if (err?.response?.data?.detail != undefined) {
+                toast.error(err.response.data.detail)
             } else {
                 toast.error(err.message)
             }

@@ -10,7 +10,6 @@ import {
 import {z} from "zod";
 import {zodResolver} from "@hookform/resolvers/zod";
 import {useForm} from "react-hook-form";
-import TransactionCard from "@/components/transactionCard";
 import {ScrollArea} from "@/components/ui/scroll-area";
 import {Button} from "@/components/ui/button";
 import {Loader2} from "lucide-react";
@@ -22,6 +21,8 @@ import {useGetTagsQuery} from "@/api/tags";
 import {useState} from "react";
 import Combobox from "@/components/filter/Combobox";
 import {ToggleGroup, ToggleGroupItem} from "@/components/ui/toggle-group";
+import TransactionCard from "@/components/transactionCard";
+import TransactionTagCard from "@/components/TransactionTagCard";
 
 export default function Page({params}: { params: { date: string } }) {
     const [tag, setTag] = useState("0");
@@ -42,6 +43,7 @@ export default function Page({params}: { params: { date: string } }) {
     } = useCreateTransactionMutation();
     const {mutate: deleteTransactionMutate} = useDeleteTransactionMutation();
     const {data: tagsData} = useGetTagsQuery();
+
 
     const CreateTransactionFormSchema = z.object({
         name: z.string().min(1, "O campo nome é obrigatório"),
@@ -82,15 +84,15 @@ export default function Page({params}: { params: { date: string } }) {
 
         // TODO ERRO CASO DIA INVALIDO, EX: 31 de FEVEREIRO
 
-        const tagRequest = tag != "0" ? {id: parseInt(tag)} : undefined;
+        const tag_id = tag != "0" ? parseInt(tag) : undefined;
 
         createTransactionMutate({
             name: data.name,
             description: data.description,
             value: data.value,
             type: TransactionType.OUTCOME,
-            date: date,
-            tag: tagRequest,
+            transaction_date: date,
+            tag_id: tag_id
         });
 
         reset();
@@ -352,43 +354,50 @@ export default function Page({params}: { params: { date: string } }) {
                                 Crie novos gastos para aparecerem aqui
                             </div>
                         )}
-                        {transactionsData
-                            ?.filter((transaction) => {
-                                if (filterValue === "") {
-                                    return true;
-                                }
-                                return transaction.tag.name === filterValue;
-                            })
-                            .sort((a, b) => {
-                                if (sortBy === "tag") {
-                                    if (a.tag.name < b.tag.name) return -1;
-                                    if (a.tag.name > b.tag.name) return 1;
-                                    return 0;
-                                } else {
-                                    return (
-                                        new Date(a.date).getTime() - new Date(b.date).getTime()
-                                    );
-                                }
-                            })
-                            .map((transaction, index) => {
-                                return (
-                                    <TransactionCard
-                                        key={index}
-                                        id={transaction?.id}
-                                        name={transaction?.name}
-                                        description={transaction?.description}
-                                        value={transaction?.value}
-                                        transactionType={transaction?.type}
-                                        index={index}
-                                        deleteTransaction={deleteTransaction}
-                                        day={getDayFromDate(transaction.date)}
-                                        tag={transaction?.tag?.name}
-                                    />
-                                );
-                            })}
+                        {
+                            sortBy === "tag"
+                                ?
+                                <TransactionTagCard transactionsData={transactionsData}/>
+                                :
+                                transactionsData
+                                    ?.filter((transaction) => {
+                                        if (filterValue === "") {
+                                            return true;
+                                        }
+                                        return transaction.tag.name === filterValue;
+                                    })
+                                    .sort((a, b) => {
+                                        if (sortBy === "tag") {
+                                            if (a.tag.name < b.tag.name) return -1;
+                                            if (a.tag.name > b.tag.name) return 1;
+                                            return 0;
+                                        } else {
+                                            return (
+                                                new Date(a.transaction_date).getTime() - new Date(b.transaction_date).getTime()
+                                            );
+                                        }
+                                    })
+                                    .map((transaction, index) => {
+                                        return (
+                                            <TransactionCard
+                                                key={index}
+                                                id={transaction?.id}
+                                                name={transaction?.name}
+                                                description={transaction?.description}
+                                                value={transaction?.value}
+                                                transactionType={transaction?.type}
+                                                index={index}
+                                                deleteTransaction={deleteTransaction}
+                                                day={getDayFromDate(transaction.transaction_date)}
+                                                tag={transaction?.tag?.name}
+                                            />
+                                        );
+                                    })
+                        }
                     </ScrollArea>
                 </div>
             </div>
         </main>
-    );
+    )
+        ;
 }

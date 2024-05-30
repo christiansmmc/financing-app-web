@@ -4,7 +4,7 @@ export interface LoginRequest {
 }
 
 export interface LoginResponse {
-    token: string
+    access_token: string
 }
 
 export interface RegisterRequest {

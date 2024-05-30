@@ -1,3 +1,3 @@
 export interface RequestError {
-    message: string;
+    detail: string;
 }

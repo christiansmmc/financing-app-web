@@ -1,30 +1,25 @@
 'use client'
 
 import {useRegisterMutation} from "@/api/user";
-import {z} from "zod";
 import {useForm} from "react-hook-form";
 import {zodResolver} from "@hookform/resolvers/zod";
 import {Button} from "@/components/ui/button";
-import {HomeIcon} from "@heroicons/react/24/outline";
 import {useRouter} from "next/navigation";
+import Header from "@/components/header";
+import {RegisterData, RegisterSchema} from "@/schemas/schemas";
+
 
 export default function Page() {
 
     const router = useRouter();
 
-    const {mutate: registerMutate} = useRegisterMutation()
-
-    const RegisterSchema = z.object({
-        email: z.string().email("O campo deve ser um email válido"),
-        password: z.string().min(1, "O campo não pode ser vazio")
-    })
-
-    type RegisterData = z.infer<typeof RegisterSchema>
+    const {
+        mutate: registerMutate
+    } = useRegisterMutation()
 
     const {
         register,
         handleSubmit,
-        reset,
         formState: {errors}
     } = useForm<RegisterData>({
         resolver: zodResolver(RegisterSchema)
@@ -34,24 +29,14 @@ export default function Page() {
         registerMutate(data)
     }
 
+    const handleGoLogin = () => {
+        router.push("/login")
+    }
+
     return (
         <main className={"h-screen flex flex-col"}>
-            <header
-                className={"flex justify-between items-center shadow-md h-24 flex-shrink-0 " +
-                    "lg:justify-around"}>
-                <div className={"flex justify-center w-2/5"}>
-                    <HomeIcon
-                        className={"w-8 text-gray-700 cursor-pointer"}
-                        onClick={() => router.push("/")}/>
-                </div>
-                <div className={"flex justify-center w-2/5"}>
-                    <Button
-                        onClick={() => router.push("/login")}>
-                        Entre em sua conta
-                    </Button>
-                </div>
-            </header>
-            <div className={"flex flex-1 items-center justify-center"}>
+            <Header buttonText={"Entre em sua conta"} buttonOnClick={handleGoLogin}/>
+            <div className={"flex flex-col flex-1 gap-10 items-center justify-center"}>
                 <form
                     onSubmit={handleSubmit(handleRegister)}
                     className={"flex flex-col gap-5 w-4/5 border p-10 rounded shadow-lg " +
