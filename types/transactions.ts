@@ -24,7 +24,7 @@ export interface CreateTransactionRequest {
     name: string,
     description: string | undefined,
     value: number,
-    type: TransactionType,
+    type: TransactionType | string,
     transaction_date?: string,
     tag_id?: number
 }

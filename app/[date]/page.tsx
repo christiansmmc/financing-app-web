@@ -18,7 +18,7 @@ import {capitalize, converterValorParaReal, getDayFromDate, getTodayDay,} from "
 import {useRouter} from "next/navigation";
 import Cookies from "js-cookie";
 import {useGetTagsQuery} from "@/api/tags";
-import {useState} from "react";
+import {use, useState} from "react";
 import Combobox from "@/components/filter/Combobox";
 import {ToggleGroup, ToggleGroupItem} from "@/components/ui/toggle-group";
 import TransactionCard from "@/components/transactionCard";
@@ -26,6 +26,7 @@ import TransactionTagCard from "@/components/TransactionTagCard";
 
 export default function Page({params}: { params: { date: string } }) {
     const [tag, setTag] = useState("0");
+    const [type, setType] = useState("OUTCOME")
     const [filterValue, setFilterValue] = useState("");
     const [sortBy, setSortBy] = useState("");
 
@@ -90,9 +91,9 @@ export default function Page({params}: { params: { date: string } }) {
             name: data.name,
             description: data.description,
             value: data.value,
-            type: TransactionType.OUTCOME,
+            type: type,
             transaction_date: date,
-            tag_id: tag_id
+            tag_id: tag_id,
         });
 
         reset();
@@ -216,7 +217,7 @@ export default function Page({params}: { params: { date: string } }) {
                         >
                             <div className={"w-5/6 " + "lg:w-2/5"}>
                                 <div className={"text-gray-600"}>
-                                    Nome<span className={"text-red-500"}>*</span>
+                                    Nome<span className={"text-red-500"}> *</span>
                                 </div>
                                 <input
                                     autoComplete={"off"}
@@ -233,7 +234,7 @@ export default function Page({params}: { params: { date: string } }) {
                             </div>
                             <div className={"w-5/6 " + "lg:w-2/5"}>
                                 <div className={"text-gray-600"}>
-                                    Valor<span className={"text-red-500"}>*</span>
+                                    Valor<span className={"text-red-500"}> *</span>
                                 </div>
                                 <input
                                     autoComplete={"off"}
@@ -249,7 +250,7 @@ export default function Page({params}: { params: { date: string } }) {
                                 )}
                             </div>
                             <div className={"w-5/6 " + "lg:w-2/5"}>
-                                <div className={"text-gray-600"}>Categoria</div>
+                                <div className={"text-gray-600"}>Categoria<span className={"text-red-500"}> *</span></div>
                                 <select
                                     className={"bg-gray-200 w-full h-10 rounded pl-2 text-sm"}
                                     id="tag"
@@ -280,7 +281,26 @@ export default function Page({params}: { params: { date: string } }) {
                   </span>
                                 )}
                             </div>
-                            <div className={"w-5/6"}>
+                            <div className={"w-5/6 " + "lg:w-2/5"}>
+                                <div className={"text-gray-600"}>Tipo<span className={"text-red-500"}> *</span></div>
+                                <select
+                                    className={"bg-gray-200 w-full h-10 rounded pl-2 text-sm"}
+                                    id="type"
+                                    value={type}
+                                    onChange={(e) => setType(e.target.value)}
+                                    defaultValue="OUTCOME"
+                                    required
+                                >
+                                    <option>Selecione o tipo</option>
+                                        <option value="INCOME">
+                                            Entrada
+                                        </option>
+                                        <option value="OUTCOME">
+                                            Saida
+                                        </option>
+                                </select>
+                            </div>
+                            <div className={"w-5/6 lg:w-2/5"}>
                                 <div className={"text-gray-600"}>Descrição</div>
                                 <input
                                     autoComplete={"off"}
@@ -290,7 +310,7 @@ export default function Page({params}: { params: { date: string } }) {
                                 />
                             </div>
                             {createTransactionIsLoading ? (
-                                <Button disabled className={"mt-5"}>
+                                <Button disabled className={"mt-5 lg:w-1/3"}>
                                     <Loader2 className="animate-spin"/>
                                 </Button>
                             ) : (
