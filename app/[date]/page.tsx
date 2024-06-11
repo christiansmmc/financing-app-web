@@ -121,7 +121,7 @@ export default function Page({params}: { params: { date: string } }) {
         <main className={"h-screen flex flex-col"}>
             <header
                 className={
-                    "flex justify-between items-center shadow-md h-24 flex-shrink-0 px-10 " +
+                    "flex justify-between items-center shadow-md h-20 flex-shrink-0 px-10 " +
                     "lg:justify-between lg:px-60"
                 }
             >
@@ -142,21 +142,21 @@ export default function Page({params}: { params: { date: string } }) {
             </header>
             <div
                 className={
-                    "flex flex-col my-10 " +
+                    "flex flex-col " +
                     "lg:flex-row lg:overflow-auto lg:justify-center"
                 }
             >
                 <div
                     className={
                         "flex flex-col items-center " +
-                        "md:gap-5 " +
-                        "lg:my-10 lg:w-1/2 lg:items-end lg:pr-5 xl:pr-20"
+                        "md:space-y-2 " +
+                        "lg:mt-10 lg:w-1/2 lg:items-end lg:pr-5 xl:pr-20"
                     }
                 >
                     <div
-                        className={
-                            "flex flex-col justify-center items-center border-t border-b border-gray-300 w-full h-64 rounded " +
-                            "md:w-5/6 md:border md:shadow-md " +
+                        className={ //0 1px 2px 0 rgba(88, 102, 126, .12)
+                            "flex flex-col justify-center items-center border border-gray-100 w-full h-64 rounded-lg shadow-custom-heavy " +
+                            "md:w-5/6 " +
                             "2xl:w-1/2"
                         }
                     >
@@ -203,8 +203,8 @@ export default function Page({params}: { params: { date: string } }) {
                     <form
                         onSubmit={handleSubmit(createTransaction)}
                         className={
-                            "w-full py-10 shadow-md rounded " +
-                            "md:w-5/6 md:border md:shadow-md " +
+                            "w-full py-10 border border-gray-100 rounded-lg shadow-custom-heavy " +
+                            "md:w-5/6 " +
                             "2xl:w-1/2"
                         }
                     >

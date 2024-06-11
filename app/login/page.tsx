@@ -34,21 +34,6 @@ export default function Page() {
 
     return (
         <main className={"h-screen flex flex-col"}>
-            {/*<header*/}
-            {/*    className={"flex justify-between items-center shadow-md h-24 flex-shrink-0 " +*/}
-            {/*        "lg:justify-around"}>*/}
-            {/*    <div className={"flex justify-center w-2/5"}>*/}
-            {/*        <HomeIcon*/}
-            {/*            className={"w-8 text-gray-700 cursor-pointer"}*/}
-            {/*            onClick={() => router.push("/")}/>*/}
-            {/*    </div>*/}
-            {/*    <div className={"flex justify-center w-2/5"}>*/}
-            {/*        <Button*/}
-            {/*            onClick={() => router.push("/register")}>*/}
-            {/*            Crie sua conta*/}
-            {/*        </Button>*/}
-            {/*    </div>*/}
-            {/*</header>*/}
             <Header buttonText={"Crie sua conta"} buttonOnClick={handleGoRegister}/>
             <div className={"flex flex-1 items-center justify-center"}>
                 <form

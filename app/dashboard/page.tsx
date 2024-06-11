@@ -25,7 +25,7 @@ export default function Page() {
     return (
         <main className={"h-screen flex flex-col"}>
             <header
-                className={"flex justify-between items-center shadow-md h-24 flex-shrink-0 px-10 " +
+                className={"flex justify-between items-center shadow-md h-20 flex-shrink-0 px-10 " +
                     "lg:justify-between lg:px-60"}>
                 <div className={""}>
                     <div className={"text-2xl font-semibold text-gray-700"}>Planilha de gastos</div>
@@ -54,11 +54,11 @@ export default function Page() {
                                 return (
                                     <div
                                         key={index}
-                                        className={`border-l-2 p-8 shadow-md w-4/5 cursor-pointer 
+                                        className={`border-l-2 p-8 w-4/5 cursor-pointer rounded shadow
                                         lg:w-1/2
                                         xl:w-1/3
                                         2xl:w-1/4
-                                       ${transactionMonth.date === getStrYearMonthToday() ? 'border-green-500' : 'border-gray-500'}`}
+                                       ${transactionMonth.date === getStrYearMonthToday() ? 'border-l-green-500' : 'border-l-gray-500'}`}
                                         onClick={() => router.push(`/${transactionMonth.date}`)}>
                                         {capitalize(transactionMonth.formattedDate)}
                                     </div>

@@ -19,7 +19,7 @@ const Header = ({
 
     return (
         <header
-            className={"flex justify-between items-center shadow-md h-24 flex-shrink-0 " +
+            className={"flex justify-between items-center shadow-md h-20 flex-shrink-0 " +
                 "lg:justify-around"}>
             <div className={"flex justify-center w-2/5"}>
                 <HomeIcon

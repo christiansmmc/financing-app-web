@@ -30,9 +30,9 @@ const TransactionCard = ({
     return (
         <div
             key={index}
-            className={`flex justify-around items-center h-16 w-full gap-4 px-2 border-l-2 mb-2 flex-shrink-0
+            className={`flex justify-around items-center h-16 w-full gap-4 px-2 border-l-2 mb-2 flex-shrink-0 border border-gray-100 rounded shadow-custom-light
             xl:pr-4
-            ${index % 2 === 0 ? 'bg-gray-200' : 'bg-gray-100'} 
+            ${index % 2 === 0 ? 'bg-gray-50' : 'bg-gray'} 
             ${transactionType === TransactionType.INCOME ? 'border-l-green-500' : 'border-l-red-500'}`}
         >
             <div className={"text-xs"}>

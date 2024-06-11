@@ -9,7 +9,7 @@ export default function Home() {
 
     return (
         <main className={"h-screen flex flex-col"}>
-            <header className={"flex justify-around items-center shadow-md h-24 flex-shrink-0"}>
+            <header className={"flex justify-around items-center shadow-md h-20 flex-shrink-0"}>
                 <div className={"flex justify-center w-2/5"}>
                     <div className={"text-2xl font-semibold text-gray-700"}>Planilha de gastos</div>
                 </div>

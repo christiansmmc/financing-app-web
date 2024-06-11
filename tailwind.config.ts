@@ -88,6 +88,10 @@ const config = {
                 "accordion-down": "accordion-down 0.2s ease-out",
                 "accordion-up": "accordion-up 0.2s ease-out",
             },
+            boxShadow: {
+                'custom-light': '0 1px 2px 0 rgba(88, 102, 126, .12)',
+                'custom-heavy': '0 4px 24px 0 rgba(88, 102, 126, .08)',
+              }
         },
     },
     plugins: [require("tailwindcss-animate")],
