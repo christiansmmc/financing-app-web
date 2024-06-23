@@ -39,10 +39,9 @@ const CreateMonthDialog = () => {
     return (
         <Dialog>
             <DialogTrigger asChild>
-                <Button className={"text-md w-4/5 " +
+                <Button className={"text-md w-4/5 max-w-md " +
                     "lg:w-1/2 " +
-                    "xl:w-1/3 " +
-                    "2xl:w-1/4"}>
+                    "xl:w-1/3"}>
                     Adicionar mês
                 </Button>
             </DialogTrigger>

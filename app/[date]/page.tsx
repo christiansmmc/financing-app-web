@@ -22,6 +22,7 @@ import Combobox from "@/components/filter/Combobox";
 import {ToggleGroup, ToggleGroupItem} from "@/components/ui/toggle-group";
 import TransactionCard from "@/components/transactionCard";
 import TransactionTagCard from "@/components/TransactionTagCard";
+import { Skeleton } from "@/components/ui/skeleton";
 
 export default function Page({params}: { params: { date: string } }) {
     const [tag, setTag] = useState("0");
@@ -159,7 +160,7 @@ export default function Page({params}: { params: { date: string } }) {
                         <div className={"text-gray-600 text-2xl"}>
                             {transactionsSummaryData
                                 ? capitalize(transactionsSummaryData.formattedDate)
-                                : "..."}
+                                : <Skeleton className="h-7 w-[150px]" />}
                         </div>
                         <div className={"flex flex-col w-full gap-4 text-xl mt-10"}>
                             <div className={"flex justify-center"}>
@@ -171,7 +172,7 @@ export default function Page({params}: { params: { date: string } }) {
                                         ? converterValorParaReal(
                                             transactionsSummaryData.totalIncome
                                         )
-                                        : "R$ 0,00"}
+                                        : <Skeleton className="h-5 w-[200px]" />}
                                 </div>
                             </div>
                             <div className={"flex justify-center"}>
@@ -181,7 +182,7 @@ export default function Page({params}: { params: { date: string } }) {
                                         ? converterValorParaReal(
                                             transactionsSummaryData.totalOutcome
                                         )
-                                        : "R$ 0,00"}
+                                        : <Skeleton className="h-5 w-[200px]" />}
                                 </div>
                             </div>
                             <div className={"flex justify-center"}>
@@ -191,7 +192,7 @@ export default function Page({params}: { params: { date: string } }) {
                                 <div className={"w-1/2 text-center text-gray-600"}>
                                     {transactionsSummaryData
                                         ? converterValorParaReal(transactionsSummaryData.profit)
-                                        : "R$ 0,00"}
+                                        : <Skeleton className="h-5 w-[200px]" />}
                                 </div>
                             </div>
                         </div>
@@ -245,7 +246,7 @@ export default function Page({params}: { params: { date: string } }) {
                                 )}
                             </div>
                             <div className={"w-5/6 " + "lg:w-2/5"}>
-                                <div className={"text-gray-600"}>Categoria<span className={"text-red-500"}> *</span></div>
+                                <div className={"text-gray-600"}>Categoria</div>
                                 <select
                                     className={"bg-gray-200 w-full h-10 rounded pl-2 text-sm"}
                                     id="tag"
@@ -374,7 +375,8 @@ export default function Page({params}: { params: { date: string } }) {
                                 ?
                                 <TransactionTagCard transactionsData={transactionsData}/>
                                 :
-                                transactionsData
+                                transactionsData 
+                                ? transactionsData
                                     ?.filter((transaction) => {
                                         if (filterValue === "") {
                                             return true;
@@ -407,6 +409,12 @@ export default function Page({params}: { params: { date: string } }) {
                                             />
                                         );
                                     })
+                                    : 
+                                    <div>
+                                        <Skeleton className="h-16 w-full mb-2" />
+                                        <Skeleton className="h-16 w-full mb-2" />
+                                        <Skeleton className="h-16 w-full mb-2" />
+                                    </div>
                         }
                     </ScrollArea>
                 </div>
