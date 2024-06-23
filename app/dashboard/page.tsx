@@ -6,6 +6,7 @@ import {useRouter} from "next/navigation";
 import CreateMonthDialog from "@/components/dialog/CreateMonthDialog";
 import Cookies from "js-cookie";
 import {ArrowLeftStartOnRectangleIcon} from "@heroicons/react/24/outline";
+import { Loader2 } from "lucide-react";
 
 export default function Page() {
 
@@ -48,6 +49,7 @@ export default function Page() {
                             Crie um novo mês e adicione pelo menos 1 gasto para aparecerem aqui
                         </div>}
                     {
+                        transactionMonthsData ? 
                         transactionMonthsData
                             ?.sort((a, b) => b.date.localeCompare(a.date))
                             .map((transactionMonth, index) => {
@@ -58,12 +60,13 @@ export default function Page() {
                                         lg:w-1/2
                                         xl:w-1/3
                                         2xl:w-1/4
-                                       ${transactionMonth.date === getStrYearMonthToday() ? 'border-l-green-500' : 'border-l-gray-500'}`}
+                                       ${transactionMonth.date === getStrYearMonthToday() ? 'border-l-green-500' : 'border-l-blue-500'}`}
                                         onClick={() => router.push(`/${transactionMonth.date}`)}>
                                         {capitalize(transactionMonth.formattedDate)}
                                     </div>
                                 )
-                            })
+                            }) :
+                            <Loader2 className="animate-spin"/>
                     }
                 </div>
             </div>
