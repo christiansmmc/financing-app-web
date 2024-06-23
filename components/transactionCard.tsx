@@ -32,6 +32,10 @@ const TransactionCard = ({
         isLoading: isLoadingDeleteTransaction
     } = useDeleteTransactionMutation();                      
                             
+    const handleDeleteTransaction = (id: number) => {
+        deleteTransactionMutate(id);
+    };
+
     return (
         <div
             key={index}
@@ -66,7 +70,7 @@ const TransactionCard = ({
                     value={value}
                     index={index}
                     editTransaction={() => console.log()}/> */}
-                <div onClick={() => deleteTransactionMutate(id)}>
+                <div onClick={() => handleDeleteTransaction(id)}>
                     {!isLoadingDeleteTransaction 
                     ? <TrashIcon className="h-6 cursor-pointer "/>
                 : <Loader2 className="animate-spin"/>}

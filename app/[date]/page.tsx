@@ -98,10 +98,6 @@ export default function Page({params}: { params: { date: string } }) {
         reset();
     };
 
-    const deleteTransaction = (id: number) => {
-        deleteTransactionMutate(id);
-    };
-
     const handleLogout = () => {
         router.push("/");
         Cookies.remove("access_token");
