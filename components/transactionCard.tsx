@@ -1,7 +1,9 @@
 import {capitalize, converterValorParaReal} from "@/utils/stringUtils";
 import {TrashIcon} from "@heroicons/react/24/outline";
-import EditProfileDialog from "@/components/dialog/EditProfileDialog";
 import {TransactionType} from "@/types/transactions";
+import { Loader2 } from "lucide-react";
+
+import {useDeleteTransactionMutation} from "@/api/transactions";
 
 interface TransactionCardProps {
     id: number
@@ -10,7 +12,6 @@ interface TransactionCardProps {
     value: number,
     transactionType: TransactionType,
     index: number,
-    deleteTransaction: (id: number) => void,
     day: string,
     tag?: string
 }
@@ -22,11 +23,15 @@ const TransactionCard = ({
                              value,
                              transactionType,
                              index,
-                             deleteTransaction,
                              day,
                              tag
                          }: TransactionCardProps) => {
-
+        
+    const {
+        mutate: deleteTransactionMutate, 
+        isLoading: isLoadingDeleteTransaction
+    } = useDeleteTransactionMutation();                      
+                            
     return (
         <div
             key={index}
@@ -54,15 +59,17 @@ const TransactionCard = ({
                 {converterValorParaReal(value)}
             </div>
             <div className={"flex gap-3"}>
-                <EditProfileDialog
+                {/* <EditProfileDialog
                     id={id}
                     name={name}
                     description={description ?? ""}
                     value={value}
                     index={index}
-                    editTransaction={() => console.log()}/>
-                <div onClick={() => deleteTransaction(id)}>
-                    {<TrashIcon className="h-6 cursor-pointer "/>}
+                    editTransaction={() => console.log()}/> */}
+                <div onClick={() => deleteTransactionMutate(id)}>
+                    {!isLoadingDeleteTransaction 
+                    ? <TrashIcon className="h-6 cursor-pointer "/>
+                : <Loader2 className="animate-spin"/>}
                 </div>
             </div>
         </div>

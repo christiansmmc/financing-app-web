@@ -13,12 +13,11 @@ import {useForm} from "react-hook-form";
 import {ScrollArea} from "@/components/ui/scroll-area";
 import {Button} from "@/components/ui/button";
 import {Loader2} from "lucide-react";
-import {TransactionType} from "@/types/transactions";
 import {capitalize, converterValorParaReal, getDayFromDate, getTodayDay,} from "@/utils/stringUtils";
 import {useRouter} from "next/navigation";
 import Cookies from "js-cookie";
 import {useGetTagsQuery} from "@/api/tags";
-import {use, useState} from "react";
+import {useState} from "react";
 import Combobox from "@/components/filter/Combobox";
 import {ToggleGroup, ToggleGroupItem} from "@/components/ui/toggle-group";
 import TransactionCard from "@/components/transactionCard";
@@ -42,9 +41,9 @@ export default function Page({params}: { params: { date: string } }) {
         mutate: createTransactionMutate,
         isLoading: createTransactionIsLoading,
     } = useCreateTransactionMutation();
-    const {mutate: deleteTransactionMutate} = useDeleteTransactionMutation();
-    const {data: tagsData} = useGetTagsQuery();
-
+    const {
+        data: tagsData
+    } = useGetTagsQuery();
 
     const CreateTransactionFormSchema = z.object({
         name: z.string().min(1, "O campo nome é obrigatório"),
@@ -155,10 +154,10 @@ export default function Page({params}: { params: { date: string } }) {
                     }
                 >
                     <div
-                        className={ //0 1px 2px 0 rgba(88, 102, 126, .12)
+                        className={
                             "flex flex-col justify-center items-center border border-gray-100 w-full h-64 rounded-lg shadow-custom-heavy " +
                             "md:w-5/6 " +
-                            "2xl:w-1/2"
+                            "2xl:max-w-2xl"
                         }
                     >
                         <div className={"text-gray-600 text-2xl"}>
@@ -206,7 +205,7 @@ export default function Page({params}: { params: { date: string } }) {
                         className={
                             "w-full py-10 border border-gray-100 rounded-lg shadow-custom-heavy " +
                             "md:w-5/6 " +
-                            "2xl:w-1/2"
+                            "2xl:max-w-2xl"
                         }
                     >
                         <div
@@ -361,9 +360,9 @@ export default function Page({params}: { params: { date: string } }) {
                     </div>
                     <ScrollArea
                         type={"always"}
-                        className="max-h-96 w-full gap-2 px-3 mb-10
-                    lg:max-h-screen
-                    2xl:w-3/4"
+                        className={"max-h-96 w-full gap-2 px-3 mb-10 " +
+                    "lg:max-h-screen " +
+                    "2xl:w-5/6 2xl:max-w-4xl"}
                     >
                         {transactionsData?.length === 0 && (
                             <div
@@ -407,7 +406,6 @@ export default function Page({params}: { params: { date: string } }) {
                                                 value={transaction?.value}
                                                 transactionType={transaction?.type}
                                                 index={index}
-                                                deleteTransaction={deleteTransaction}
                                                 day={getDayFromDate(transaction.transaction_date)}
                                                 tag={transaction?.tag?.name}
                                             />

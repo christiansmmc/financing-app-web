@@ -127,7 +127,8 @@ export const useDeleteTransactionMutation = () => {
     const router = useRouter();
 
     const {
-        mutate
+        mutate,
+        isLoading
     } = useMutation<
         void,
         AxiosError<RequestError>,
@@ -150,7 +151,7 @@ export const useDeleteTransactionMutation = () => {
         },
     });
 
-    return {mutate};
+    return {mutate, isLoading};
 };
 
 export const getTransactionMonths = async (): Promise<GetTransactionMonthsResponse[]> => {
