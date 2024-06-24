@@ -6,7 +6,6 @@ import {useRouter} from "next/navigation";
 import CreateMonthDialog from "@/components/dialog/CreateMonthDialog";
 import Cookies from "js-cookie";
 import {ArrowLeftStartOnRectangleIcon} from "@heroicons/react/24/outline";
-import { Loader2 } from "lucide-react";
 import { Skeleton } from "@/components/ui/skeleton";
 
 export default function Page() {
