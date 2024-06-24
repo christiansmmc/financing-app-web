@@ -39,10 +39,10 @@ export default function Page() {
             <div className={"flex flex-col flex-1 gap-10 items-center justify-center"}>
                 <form
                     onSubmit={handleSubmit(handleRegister)}
-                    className={"flex flex-col gap-5 w-4/5 border p-10 rounded shadow-lg " +
-                        "lg:w-2/5 " +
-                        "xl:w-1/3 " +
-                        "2xl:w-1/5"}>
+                    className="flex flex-col gap-5 w-4/5 border p-10 rounded shadow-custom-heavy
+                        lg:w-2/5
+                        xl:w-1/3
+                        2xl:w-1/5">
                     <div>
                         <div className={"text-gray-600"}>Email<span className={"text-red-500"}>*</span></div>
                         <input
@@ -63,7 +63,7 @@ export default function Page() {
                         {errors.password &&
                             <span className={"text-xs text-red-500"}>{errors.password.message}</span>}
                     </div>
-                    <Button type={"submit"} className={"text-md"}>Entrar</Button>
+                    <Button type={"submit"} className={"text-md"}>Criar conta</Button>
                 </form>
             </div>
         </main>

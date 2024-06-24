@@ -38,7 +38,7 @@ export default function Page() {
             <div className={"flex flex-1 items-center justify-center"}>
                 <form
                     onSubmit={handleSubmit(handleLogin)}
-                    className={"flex flex-col gap-5 w-4/5 border p-10 rounded shadow-lg " +
+                    className={"flex flex-col gap-5 w-4/5 border p-10 rounded shadow-custom-heavy " +
                         "lg:w-2/5 " +
                         "xl:w-1/3 " +
                         "2xl:w-1/5"}>

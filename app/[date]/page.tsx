@@ -151,12 +151,9 @@ export default function Page({params}: { params: { date: string } }) {
                     }
                 >
                     <div
-                        className={
-                            "flex flex-col justify-center items-center border border-gray-100 w-full h-64 rounded-lg shadow-custom-heavy " +
-                            "md:w-5/6 " +
-                            "2xl:max-w-2xl"
-                        }
-                    >
+                        className="flex flex-col justify-center items-center border border-gray-100 w-full h-64 rounded-lg shadow-custom-heavy
+                            md:w-5/6
+                            2xl:max-w-2xl">
                         <div className={"text-gray-600 text-2xl"}>
                             {transactionsSummaryData
                                 ? capitalize(transactionsSummaryData.formattedDate)
