@@ -18,7 +18,7 @@ const Header = ({
     }
 
     return (
-        <header
+        <div
             className={"flex justify-between items-center shadow-md h-20 flex-shrink-0 " +
                 "lg:justify-around"}>
             <div className={"flex justify-center w-2/5"}>
@@ -27,12 +27,13 @@ const Header = ({
                     onClick={handleGoHome}/>
             </div>
             <div className={"flex justify-center w-2/5"}>
-                <Button
+                <div className="flex items-center justify-center h-10 cursor-pointer px-5 rounded-md transition-all duration-300 ease-in-out active:scale-95 bg-slate-900 text-white
+                    hover:bg-gray-700"
                     onClick={buttonOnClick}>
                     {buttonText}
-                </Button>
+                </div>
             </div>
-        </header>
+        </div>
     )
 };
 

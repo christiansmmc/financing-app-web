@@ -15,14 +15,16 @@ export default function Home() {
                 </div>
                 <div className={"flex justify-center items-center gap-5 w-2/5"}>
                     <div
-                        className={"cursor-pointer p-3"}
+                        className="flex items-center justify-center w-20 h-10 cursor-pointer p-3 rounded-md transition-all duration-300 ease-in-out active:scale-95
+                        hover:bg-blue-500 hover:text-white"
                         onClick={() => router.push("/login")}>
                         Entrar
                     </div>
-                    <Button
-                        onClick={() => router.push("/register")}>
+                    <div className="flex items-center justify-center w-32 h-10 cursor-pointer p-3 rounded-md transition-all duration-300 ease-in-out active:scale-95 bg-slate-900 text-white
+                    hover:bg-gray-700"
+                    onClick={() => router.push("/register")}>
                         Crie sua conta
-                    </Button>
+                    </div>
                 </div>
             </header>
             <div className={"flex justify-center my-10"}>
