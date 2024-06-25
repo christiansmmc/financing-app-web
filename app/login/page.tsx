@@ -34,9 +34,7 @@ export default function Page() {
     }
 
     return (
-        <main className={"h-screen flex flex-col"}>
-            <Header buttonText={"Crie sua conta"} buttonOnClick={handleGoRegister}/>
-            <div className="h-screen flex">
+        <main className={"h-screen flex"}>
                 <div className="hidden
                 lg:flex lg:justify-end lg:items-center lg:w-1/2">
                     <GraphicImage className="w-5/6"/>
@@ -51,8 +49,7 @@ export default function Page() {
                         lg:p-10 lg:w-4/5
                         2xl:w-3/5
                         3xl:w-2/5"
-                        onSubmit={handleSubmit(handleLogin)}
-                            >
+                        onSubmit={handleSubmit(handleLogin)}>
                         <div>
                             <div className={"text-gray-600"}>Email<span className={"text-red-500"}>*</span></div>
                             <input
@@ -73,10 +70,12 @@ export default function Page() {
                             {errors.password &&
                                 <span className={"text-xs text-red-500"}>{errors.password.message}</span>}
                         </div>
-                        <Button type={"submit"} className={"text-md"}>Entrar</Button>
+                        <div className="flex flex-col relative">
+                            <Button type={"submit"} className={"text-md w-full"}>Entrar</Button>
+                            <div className="flex justify-end pt-1">Ainda não tem conta?<span className="underline pl-1 cursor-pointer" onClick={handleGoRegister}>Clique aqui!</span></div>
+                        </div>
                     </form>
                 </div>
-            </div>
         </main>
     );
 }
