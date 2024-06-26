@@ -3,7 +3,6 @@
 import {ArrowLeftStartOnRectangleIcon, HomeIcon,} from "@heroicons/react/24/outline";
 import {
     useCreateTransactionMutation,
-    useDeleteTransactionMutation,
     useGetTransactionsQuery,
     useGetTransactionsSummaryQuery,
 } from "@/api/transactions";
@@ -22,7 +21,7 @@ import Combobox from "@/components/filter/Combobox";
 import {ToggleGroup, ToggleGroupItem} from "@/components/ui/toggle-group";
 import TransactionCard from "@/components/transactionCard";
 import TransactionTagCard from "@/components/TransactionTagCard";
-import { Skeleton } from "@/components/ui/skeleton";
+import {Skeleton} from "@/components/ui/skeleton";
 
 export default function Page({params}: { params: { date: string } }) {
     const [tag, setTag] = useState("0");
@@ -122,17 +121,19 @@ export default function Page({params}: { params: { date: string } }) {
                     "lg:justify-between lg:px-60"
                 }
             >
-                <div className={""}>
+                <div className="w-14 flex items-center justify-center cursor-pointer
+                 hover:border hover:border-gray-100 hover:p-2 hover:bg-gray-50 hover:rounded hover:shadow-custom-light"
+                     onClick={handleGoHome}>
                     <HomeIcon
-                        className={"w-8 text-gray-700 cursor-pointer"}
-                        onClick={handleGoHome}
+                        className={"flex items-center justify-center w-8 text-gray-700"}
                     />
                 </div>
-                <div className={""}>
+                <div className="w-14 flex items-center justify-center cursor-pointer
+                 hover:border hover:border-gray-100 hover:p-2 hover:bg-gray-50 hover:rounded hover:shadow-custom-light"
+                     onClick={handleLogout}>
                     {
                         <ArrowLeftStartOnRectangleIcon
-                            className={"w-8 text-gray-700 cursor-pointer"}
-                            onClick={handleLogout}
+                            className={"w-8 text-gray-700"}
                         />
                     }
                 </div>
@@ -157,7 +158,7 @@ export default function Page({params}: { params: { date: string } }) {
                         <div className={"text-gray-600 text-2xl"}>
                             {transactionsSummaryData
                                 ? capitalize(transactionsSummaryData.formattedDate)
-                                : <Skeleton className="h-7 w-[150px]" />}
+                                : <Skeleton className="h-7 w-[150px]"/>}
                         </div>
                         <div className={"flex flex-col w-full gap-4 text-xl mt-10"}>
                             <div className={"flex justify-center"}>
@@ -169,7 +170,7 @@ export default function Page({params}: { params: { date: string } }) {
                                         ? converterValorParaReal(
                                             transactionsSummaryData.totalIncome
                                         )
-                                        : <Skeleton className="h-5 w-[200px]" />}
+                                        : <Skeleton className="h-5 w-[200px]"/>}
                                 </div>
                             </div>
                             <div className={"flex justify-center"}>
@@ -179,7 +180,7 @@ export default function Page({params}: { params: { date: string } }) {
                                         ? converterValorParaReal(
                                             transactionsSummaryData.totalOutcome
                                         )
-                                        : <Skeleton className="h-5 w-[200px]" />}
+                                        : <Skeleton className="h-5 w-[200px]"/>}
                                 </div>
                             </div>
                             <div className={"flex justify-center"}>
@@ -189,7 +190,7 @@ export default function Page({params}: { params: { date: string } }) {
                                 <div className={"w-1/2 text-center text-gray-600"}>
                                     {transactionsSummaryData
                                         ? converterValorParaReal(transactionsSummaryData.profit)
-                                        : <Skeleton className="h-5 w-[200px]" />}
+                                        : <Skeleton className="h-5 w-[200px]"/>}
                                 </div>
                             </div>
                         </div>
@@ -285,12 +286,12 @@ export default function Page({params}: { params: { date: string } }) {
                                     required
                                 >
                                     <option>Selecione o tipo</option>
-                                        <option value="INCOME">
-                                            Entrada
-                                        </option>
-                                        <option value="OUTCOME">
-                                            Saida
-                                        </option>
+                                    <option value="INCOME">
+                                        Entrada
+                                    </option>
+                                    <option value="OUTCOME">
+                                        Saida
+                                    </option>
                                 </select>
                             </div>
                             <div className={"w-5/6 lg:w-2/5"}>
@@ -303,13 +304,19 @@ export default function Page({params}: { params: { date: string } }) {
                                 />
                             </div>
                             {createTransactionIsLoading ? (
-                                <Button disabled className={"mt-5 lg:w-1/3"}>
+                                <button
+                                    className="flex items-center justify-center mt-5 h-10 cursor-pointer px-5 rounded-md text-white bg-gray-700
+                                    lg:w-1/3"
+                                    type={"submit"} disabled={true}>
                                     <Loader2 className="animate-spin"/>
-                                </Button>
+                                </button>
                             ) : (
-                                <Button className={"text-md mt-5 lg:w-1/3"}>
+                                <button className="flex items-center justify-center mt-5 h-10 cursor-pointer px-5 rounded-md
+                            transition-all duration-200 ease-in-out active:scale-95 bg-slate-900 text-white
+                            lg:w-1/3
+                            hover:bg-gray-700" type={"submit"}>
                                     Adicionar gasto
-                                </Button>
+                                </button>
                             )}
                         </div>
                     </form>
@@ -355,8 +362,8 @@ export default function Page({params}: { params: { date: string } }) {
                     <ScrollArea
                         type={"always"}
                         className={"max-h-96 w-full gap-2 px-3 mb-10 " +
-                    "lg:max-h-screen " +
-                    "2xl:w-5/6 2xl:max-w-4xl"}
+                            "lg:max-h-screen " +
+                            "2xl:w-5/6 2xl:max-w-4xl"}
                     >
                         {transactionsData?.length === 0 && (
                             <div
@@ -372,45 +379,45 @@ export default function Page({params}: { params: { date: string } }) {
                                 ?
                                 <TransactionTagCard transactionsData={transactionsData}/>
                                 :
-                                transactionsData 
-                                ? transactionsData
-                                    ?.filter((transaction) => {
-                                        if (filterValue === "") {
-                                            return true;
-                                        }
-                                        return transaction.tag.name === filterValue;
-                                    })
-                                    .sort((a, b) => {
-                                        if (sortBy === "tag") {
-                                            if (a.tag.name < b.tag.name) return -1;
-                                            if (a.tag.name > b.tag.name) return 1;
-                                            return 0;
-                                        } else {
+                                transactionsData
+                                    ? transactionsData
+                                        ?.filter((transaction) => {
+                                            if (filterValue === "") {
+                                                return true;
+                                            }
+                                            return transaction.tag.name === filterValue;
+                                        })
+                                        .sort((a, b) => {
+                                            if (sortBy === "tag") {
+                                                if (a.tag.name < b.tag.name) return -1;
+                                                if (a.tag.name > b.tag.name) return 1;
+                                                return 0;
+                                            } else {
+                                                return (
+                                                    new Date(a.transaction_date).getTime() - new Date(b.transaction_date).getTime()
+                                                );
+                                            }
+                                        })
+                                        .map((transaction, index) => {
                                             return (
-                                                new Date(a.transaction_date).getTime() - new Date(b.transaction_date).getTime()
+                                                <TransactionCard
+                                                    key={index}
+                                                    id={transaction?.id}
+                                                    name={transaction?.name}
+                                                    description={transaction?.description}
+                                                    value={transaction?.value}
+                                                    transactionType={transaction?.type}
+                                                    index={index}
+                                                    day={getDayFromDate(transaction.transaction_date)}
+                                                    tag={transaction?.tag?.name}
+                                                />
                                             );
-                                        }
-                                    })
-                                    .map((transaction, index) => {
-                                        return (
-                                            <TransactionCard
-                                                key={index}
-                                                id={transaction?.id}
-                                                name={transaction?.name}
-                                                description={transaction?.description}
-                                                value={transaction?.value}
-                                                transactionType={transaction?.type}
-                                                index={index}
-                                                day={getDayFromDate(transaction.transaction_date)}
-                                                tag={transaction?.tag?.name}
-                                            />
-                                        );
-                                    })
-                                    : 
+                                        })
+                                    :
                                     <div>
-                                        <Skeleton className="h-16 w-full mb-2" />
-                                        <Skeleton className="h-16 w-full mb-2" />
-                                        <Skeleton className="h-16 w-full mb-2" />
+                                        <Skeleton className="h-16 w-full mb-2"/>
+                                        <Skeleton className="h-16 w-full mb-2"/>
+                                        <Skeleton className="h-16 w-full mb-2"/>
                                     </div>
                         }
                     </ScrollArea>

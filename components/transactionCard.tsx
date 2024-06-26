@@ -72,7 +72,7 @@ const TransactionCard = ({
                     editTransaction={() => console.log()}/> */}
                 <div onClick={() => handleDeleteTransaction(id)}>
                     {!isLoadingDeleteTransaction 
-                    ? <TrashIcon className="h-6 cursor-pointer "/>
+                    ? <TrashIcon className="h-6 cursor-pointer hover:text-red-600"/>
                 : <Loader2 className="animate-spin"/>}
                 </div>
             </div>
