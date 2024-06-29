@@ -48,7 +48,14 @@ const TransactionTagCard = ({transactionsData}: TransactionTagCardProps) => {
                                         {transactionTag}
                                     </div>
                                     <div
-                                        className={`w-2/12 text-left xl:mr-10 ${groupedTransactions[transactionTag].reduce((acc: any, transaction: any) => acc + (transaction.type === "OUTCOME" ? -transaction.value : transaction.value), 0) > 0 ? 'text-green-500' : 'text-red-500'}`}>
+                                        className={`text-left w-1/3 
+                                            sm:w-1/5
+                                            lg:w-1/4 lg:mr-8
+                                            xl:w-1/4
+                                            2xl:w-1/4
+                                            3xl:w-1/6
+                                        ${groupedTransactions[transactionTag].reduce((acc: any, transaction: any) => acc + (transaction.type === "OUTCOME" ? -transaction.value : transaction.value), 0) > 0 ? 'text-green-500' : 'text-red-500'}
+                                        `}>
                                         {converterValorParaReal(groupedTransactions[transactionTag].reduce((acc: any, transaction: any) => acc + (transaction.type === "OUTCOME" ? -transaction.value : transaction.value), 0))}
                                     </div>
                                 </div>
@@ -59,9 +66,12 @@ const TransactionTagCard = ({transactionsData}: TransactionTagCardProps) => {
                                 <>
                                     <AccordionContent key={transaction.id}>
                                         <div className={"flex justify-between items-center px-2"}>
-                                            <div>{transaction.name}</div>
+                                            <div>
+                                                <div className="">{transaction.name}</div>
+                                                <div className="text-xs">{transaction.description}</div>
+                                            </div>
                                             <div
-                                                className={`${transaction.type === TransactionType.INCOME ? 'text-green-500' : 'text-red-500'}`}
+                                                className={`w-1/6 ${transaction.type === TransactionType.INCOME ? 'text-green-500' : 'text-red-500'}`}
                                             >
                                                 {converterValorParaReal(transaction.value)}
                                             </div>

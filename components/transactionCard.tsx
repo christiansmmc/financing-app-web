@@ -58,7 +58,7 @@ const TransactionCard = ({
                     </div>
                 }
             </div>
-            <div className={`w-2/12 text-left xl:mr-10
+            <div className={`w-1/6 text-left
             ${transactionType === TransactionType.INCOME ? 'text-green-500' : 'text-red-500'}`}>
                 {converterValorParaReal(value)}
             </div>
