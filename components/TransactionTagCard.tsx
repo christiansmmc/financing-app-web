@@ -24,10 +24,18 @@ const TransactionTagCard = ({transactionsData}: TransactionTagCardProps) => {
     }, [transactionsData]);
 
     return (
-        <>
             <Accordion type="single" collapsible className="w-full">
                 {Object
                     .keys(groupedTransactions)
+                    .sort((a, b) => {
+                        if (a === "Outros") {
+                            return 1
+                        }
+                        if (b === "Outros") {
+                            return -1
+                        }
+                        return a.localeCompare(b)
+                    })
                     .map((transactionTag) => (
                         <AccordionItem value={transactionTag} key={transactionTag}>
                             <AccordionTrigger>
@@ -35,14 +43,15 @@ const TransactionTagCard = ({transactionsData}: TransactionTagCardProps) => {
                                     <div>
                                         {transactionTag}
                                     </div>
-
                                     <div
                                         className={`w-2/12 text-left xl:mr-10 ${groupedTransactions[transactionTag].reduce((acc: any, transaction: any) => acc + (transaction.type === "OUTCOME" ? -transaction.value : transaction.value), 0) > 0 ? 'text-green-500' : 'text-red-500'}`}>
                                         {converterValorParaReal(groupedTransactions[transactionTag].reduce((acc: any, transaction: any) => acc + (transaction.type === "OUTCOME" ? -transaction.value : transaction.value), 0))}
                                     </div>
                                 </div>
                             </AccordionTrigger>
-                            {groupedTransactions[transactionTag].map((transaction: any) => (
+                            {groupedTransactions[transactionTag]
+                            .sort((a, b) => a.name.localeCompare(b.name))
+                            .map((transaction: any) => (
                                 <>
                                     <AccordionContent key={transaction.id}>
                                         <div className={"flex justify-between items-center px-2"}>
@@ -61,7 +70,6 @@ const TransactionTagCard = ({transactionsData}: TransactionTagCardProps) => {
 
                     ))}
             </Accordion>
-        </>
     )
 };
 
