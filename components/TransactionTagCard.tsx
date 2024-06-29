@@ -8,10 +8,14 @@ interface TransactionTagCardProps {
     transactionsData: GetTransactionResponse[] | undefined;
 }
 
+interface GroupedTransactions {
+    [key: string]: GetTransactionResponse[];
+}
+
 const TransactionTagCard = ({transactionsData}: TransactionTagCardProps) => {
 
     const groupedTransactions = useMemo(() => {
-        const groups: any = {};
+        const groups: GroupedTransactions = {};
 
         transactionsData?.forEach(transaction => {
             const tagName = transaction.tag?.name || 'Outros';
