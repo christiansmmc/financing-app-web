@@ -31,7 +31,7 @@ A ideia veio de uma necessidade própria de ter um lugar simples e gratuito para
 ## Tecnologias Utilizadas
 
 - **Frontend**: Next.js
-- **Backend**: FastAPI
+- **Backend**: FastAPI [Repo](https://github.com/christiansmmc/fastapi-financing-app-api)
 
 ## Acesso ao Site
 
