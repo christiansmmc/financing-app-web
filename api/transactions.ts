@@ -92,7 +92,8 @@ export const useCreateTransactionMutation = () => {
 
     const {
         mutate,
-        isLoading
+        isLoading,
+        isSuccess
     } = useMutation<
         void,
         AxiosError<RequestError>,
@@ -115,7 +116,7 @@ export const useCreateTransactionMutation = () => {
         },
     });
 
-    return {mutate, isLoading};
+    return {mutate, isLoading, isSuccess};
 };
 
 export const deleteTransaction = async (id: number) => {
@@ -137,8 +138,8 @@ export const useDeleteTransactionMutation = () => {
     >({
         mutationFn: (id: number) => deleteTransaction(id),
         onSuccess: () => {
-            queryClient.invalidateQueries("GetTransactions");
-            queryClient.invalidateQueries("GetTransactionsSummary");
+            queryClient.invalidateQueries("GetTransactions")
+            queryClient.invalidateQueries("GetTransactionsSummary")
         },
         onError: (err) => {
             if (err?.response?.status === 401) {
