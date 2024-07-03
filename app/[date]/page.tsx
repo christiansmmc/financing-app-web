@@ -136,7 +136,6 @@ export default function Page({params}: { params: { date: string } }) {
                     }
                 </div>
             </header>
-            {/*BUTTONS*/}
             <div className="flex flex-col overflow-auto
             lg:flex lg:flex-row lg:overflow-auto lg:justify-center lg:px-1">
                 <div className="mt-8 sm:flex sm:flex-col sm:items-center
@@ -188,7 +187,7 @@ export default function Page({params}: { params: { date: string } }) {
                     </div>
                     {/*FORM*/}
                     <div className="hidden
-                            lg:block lg:px-2 lg:border lg:border-gray-100 lg:rounded-lg lg:shadow-custom-heavy lg:w-full
+                            lg:block lg:px-2 lg:border lg:border-gray-100 lg:rounded-lg lg:shadow-custom-heavy lg:w-[95%]
                             xl:w-5/6
                             2xl:w-4/5
                             3xl:w-3/5">
