@@ -1,36 +1,40 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Controle de Gastos Financeiros
 
-## Getting Started
+Bem-vindo ao projeto Controle de Gastos Financeiros! Este site foi desenvolvido para ajudar os usuários a monitorar e gerenciar suas finanças de maneira simples e eficaz.
 
-First, run the development server:
+## Índice
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+1. [Introdução](#introdução)
+2. [Funcionalidades](#funcionalidades)
+3. [Funcionalidades Futuras](#funcionalidades-futuras)
+4. [Tecnologias Utilizadas](#tecnologias-utilizadas)
+5. [Acesso ao Site](#acesso-ao-site)
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Introdução
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+O site de Controle de Gastos Financeiros permite aos usuários registrar, visualizar e categorizar suas despesas e receitas. O objetivo é proporcionar uma visão clara das finanças pessoais, ajudando na tomada de decisões financeiras informadas.
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+A ideia veio de uma necessidade própria de ter um lugar simples e gratuito para salvar meus gastos e poder separá-los por categorias, facilitando ver um resumo geral de onde está indo meu dinheiro.
 
-## Learn More
+## Funcionalidades
 
-To learn more about Next.js, take a look at the following resources:
+- Registro de despesas e receitas.
+- Categorias personalizáveis para despesas e receitas.
+- Autenticação e segurança de dados do usuário.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Funcionalidades Futuras
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+- Importação de dados em formatos CSV.
+- Exportação de dados em formatos CSV e PDF.
+- Adição de gráficos na tela de cada mês para visualizar o total de gastos por categoria.
 
-## Deploy on Vercel
+## Tecnologias Utilizadas
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- **Frontend**: Next.js
+- **Backend**: FastAPI
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+## Acesso ao Site
+
+Você pode acessar o site de Controle de Gastos Financeiros através do seguinte link:
+
+[Controle de Gastos Financeiros](https://financing-app-web.vercel.app/)
