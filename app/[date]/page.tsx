@@ -400,28 +400,31 @@ export default function Page({ params }: { params: { date: string } }) {
                 })
                 .sort((a, b) => {
                   if (sortBy === "tag") {
-                    if (a.tag.name < b.tag.name) return -1;
-                    if (a.tag.name > b.tag.name) return 1;
+                    const tagA = a.tag?.name || "";
+                    const tagB = b.tag?.name || "";
+                    if (tagA < tagB) return -1;
+                    if (tagA > tagB) return 1;
                     return 0;
                   } else {
-                    return (
+                    const dateComparison =
                       new Date(a.transaction_date).getTime() -
-                      new Date(b.transaction_date).getTime()
-                    );
+                      new Date(b.transaction_date).getTime();
+                    if (dateComparison !== 0) {
+                      return dateComparison;
+                    }
+                    const tagA = a.tag?.name || "";
+                    const tagB = b.tag?.name || "";
+                    if (tagA < tagB) return -1;
+                    if (tagA > tagB) return 1;
+                    return 0;
                   }
                 })
                 .map((transaction, index) => {
                   return (
                     <TransactionCard
                       key={index}
-                      id={transaction?.id}
-                      name={transaction?.name}
-                      description={transaction?.description}
-                      value={transaction?.value}
-                      transactionType={transaction?.type}
                       index={index}
-                      day={getDayFromDate(transaction.transaction_date)}
-                      tag={transaction?.tag?.name}
+                      transaction={transaction}
                     />
                   );
                 })

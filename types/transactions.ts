@@ -29,6 +29,16 @@ export interface CreateTransactionRequest {
     tag_id?: number
 }
 
+export interface UpdateTransactionRequest {
+    id: number
+    name: string,
+    description: string | undefined,
+    value: number,
+    type: TransactionType | string,
+    transaction_date: string,
+    tag_id?: number
+}
+
 export interface GetTransactionSummaryResponse {
     formattedDate: string,
     initialDate: Date,

@@ -10,7 +10,8 @@ import {
     GetTransactionMonthsResponse,
     GetTransactionResponse,
     GetTransactionSummaryResponse,
-    TransactionId
+    TransactionId,
+    UpdateTransactionRequest
 } from "@/types/transactions";
 import {toast} from "react-toastify";
 
@@ -118,6 +119,50 @@ export const useCreateTransactionMutation = () => {
 
     return {mutate, isLoading, isSuccess};
 };
+
+export const updateTransaction = async (body: UpdateTransactionRequest): Promise<void> => {
+    if (body.description == "") body.description = undefined
+    const promise = api.patch(`/transactions`, body);
+
+    await toast.promise(promise, {
+        success: "Gasto atualizado!",
+        error: "Erro atualizando gasto!",
+    });
+}
+
+export const useUpdateTransactionMutation = () => {
+    const queryClient = useQueryClient();
+    const router = useRouter();
+
+    const {
+        mutate,
+        isLoading,
+        isSuccess
+    } = useMutation<
+        void,
+        AxiosError<RequestError>,
+        UpdateTransactionRequest,
+        unknown
+    >({
+        mutationFn: (body: UpdateTransactionRequest) => updateTransaction(body),
+        onSuccess: () => {
+            queryClient.invalidateQueries("GetTransactions");
+            queryClient.invalidateQueries("GetTransactionsSummary");
+        },
+        onError: (err) => {
+            if (err?.response?.status === 401) {
+                router.push("/login");
+            } else if (err?.response?.data?.detail != undefined) {
+                toast.error(err.response.data.detail)
+            } else {
+                toast.error(err.message)
+            }
+        },
+    });
+
+    return {mutate, isLoading, isSuccess};
+};
+
 
 export const deleteTransaction = async (id: number) => {
     await api.delete(`/transactions/${id}`)

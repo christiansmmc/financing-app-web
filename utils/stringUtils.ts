@@ -58,3 +58,8 @@ export const getStrYearMonthToday = () => {
     const month = String(today.getMonth() + 1).padStart(2, '0')
     return `${year}-${month}`
 }
+
+export const updateDayInDateString = (dateString: string, newDay: number) => {
+    const dateSplited = dateString.split("-")
+    return `${dateSplited[0]}-${dateSplited[1]}-${newDay.toString().padStart(2, '0')}`;
+}
