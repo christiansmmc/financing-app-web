@@ -124,7 +124,7 @@ export default function Page({params}: { params: { date: string } }) {
     };
 
     return (
-        <main className="flex flex-col h-screen">
+        <div className="h-full flex flex-col">
             {/*HEADER WEB*/}
             <header
                 className="hidden
@@ -453,6 +453,6 @@ export default function Page({params}: { params: { date: string } }) {
                     />
                 </div>
             </header>
-        </main>
+        </div>
     );
 }
