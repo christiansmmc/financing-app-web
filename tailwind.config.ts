@@ -20,7 +20,7 @@ const config = {
             xl: "1280px",
 
             "2xl": "1536px",
-            
+
             "3xl": "2100px",
         },
         container: {
@@ -88,7 +88,8 @@ const config = {
             boxShadow: {
                 'custom-light': '0 1px 2px 0 rgba(88, 102, 126, .12)',
                 'custom-heavy': '0 4px 24px 0 rgba(88, 102, 126, .08)',
-              }
+                'custom-heavy-top': '0 -4px 24px 0 rgba(88, 102, 126, .08)',
+            }
         },
     },
     plugins: [require("tailwindcss-animate")],
