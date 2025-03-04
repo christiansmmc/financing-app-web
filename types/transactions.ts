@@ -29,6 +29,12 @@ export interface CreateTransactionRequest {
     tag_id?: number
 }
 
+export interface ImportCsvRequest {
+    bank_name: string,
+    transactions_date: string,
+    csv_base64: string
+}
+
 export interface UpdateTransactionRequest {
     id: number
     name: string,

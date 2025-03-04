@@ -10,6 +10,7 @@ import {
     GetTransactionMonthsResponse,
     GetTransactionResponse,
     GetTransactionSummaryResponse,
+    ImportCsvRequest,
     TransactionId,
     UpdateTransactionRequest
 } from "@/types/transactions";
@@ -84,6 +85,15 @@ export const createTransaction = async (body: CreateTransactionRequest): Promise
     await toast.promise(promise, {
         success: "Gasto adicionado!",
         error: "Erro adicionando gasto!",
+    });
+}
+
+export const importCsv = async (body: ImportCsvRequest): Promise<void> => {
+    const promise = api.post(`/transactions/import-csv`, body);
+
+    await toast.promise(promise, {
+        success: "Fatura Importada com Sucesso!",
+        error: "Erro Adicionando Fatura!",
     });
 }
 
@@ -231,3 +241,35 @@ export const useGetTransactionMonthsQuery = () => {
     return {data, remove};
 };
 
+export const useImportCsvMutation = () => {
+    const router = useRouter();
+    const queryClient = useQueryClient();
+
+    const {
+        mutate,
+        isLoading,
+        isSuccess
+    } = useMutation<
+        void,
+        AxiosError<RequestError>,
+        ImportCsvRequest,
+        unknown
+    >({
+        mutationFn: (body: ImportCsvRequest) => importCsv(body),
+        onSuccess: () => {
+            queryClient.invalidateQueries("GetTransactions");
+            queryClient.invalidateQueries("GetTransactionsSummary");
+        },
+        onError: (err) => {
+            if (err?.response?.status === 401) {
+                router.push("/login");
+            } else if (err?.response?.data?.detail != undefined) {
+                toast.error(err.response.data.detail)
+            } else {
+                toast.error(err.message)
+            }
+        },
+    });
+
+    return {mutate, isLoading, isSuccess};
+};

@@ -5,13 +5,13 @@ import {
     useCreateTransactionMutation,
     useGetTransactionsQuery,
     useGetTransactionsSummaryQuery,
+    useImportCsvMutation,
 } from "@/api/transactions";
 import {z} from "zod";
 import {zodResolver} from "@hookform/resolvers/zod";
 import {useForm} from "react-hook-form";
 import {capitalize, converterValorParaReal, getTodayDay,} from "@/utils/stringUtils";
 import {useRouter} from "next/navigation";
-import Cookies from "js-cookie";
 import {useGetTagsQuery} from "@/api/tags";
 import {useState} from "react";
 import {Skeleton} from "@/components/ui/skeleton";
@@ -23,6 +23,8 @@ import {Button} from "@/components/ui/button";
 import {ScrollArea} from "@/components/ui/scroll-area";
 import {Loader2} from "lucide-react";
 import MobileCreateTransactionDialog from "@/components/dialog/MobileCreateTransactionDialog";
+import ImportCsvDialog from "@/components/dialog/ImportCsvDialog";
+import {ImportCsvRequest} from "@/types/transactions";
 
 export default function Page({params}: { params: { date: string } }) {
     const [tag, setTag] = useState("0");
@@ -48,6 +50,11 @@ export default function Page({params}: { params: { date: string } }) {
         mutate: createTransactionMutate,
         isLoading: createTransactionIsLoading,
     } = useCreateTransactionMutation();
+
+    const {
+        mutate: importCsvMutate,
+        isLoading: importCsvIsLoading,
+    } = useImportCsvMutation();
 
     const {data: tagsData} = useGetTagsQuery();
 
@@ -104,11 +111,6 @@ export default function Page({params}: { params: { date: string } }) {
         reset();
     };
 
-    const handleLogout = () => {
-        router.push("/");
-        Cookies.remove("access_token");
-    };
-
     const handleGoHome = () => {
         router.push("/dashboard");
         removeTransactionsData();
@@ -119,12 +121,27 @@ export default function Page({params}: { params: { date: string } }) {
         setSortBy(sortBy);
     };
 
-    const handleFiles = (file: { name: string; base64: string }) => {
-        console.log('Arquivo:', file);
+
+    const handleImportCsv = (file: { name: string; base64: string }) => {
+        if (transactionsSummaryData === undefined) {
+            return;
+        }
+
+        const initialDate = new Date(transactionsSummaryData.initialDate);
+        const year = initialDate.getFullYear();
+        const month = String(initialDate.getMonth() + 1).padStart(2, '0');
+
+        const body: ImportCsvRequest = {
+            bank_name: "nubank",
+            transactions_date: `${year}-${month}`,
+            csv_base64: file.base64
+        }
+
+        importCsvMutate(body)
     };
 
     return (
-        <div className="h-full flex flex-col">
+        <main className="h-full flex flex-col">
             {/*HEADER WEB*/}
             <header
                 className="hidden
@@ -269,7 +286,6 @@ export default function Page({params}: { params: { date: string } }) {
                                         id="type"
                                         value={type}
                                         onChange={(e) => setType(e.target.value)}
-                                        defaultValue="OUTCOME"
                                         required
                                     >
                                         <option>Selecione o tipo</option>
@@ -440,7 +456,7 @@ export default function Page({params}: { params: { date: string } }) {
                 >
                     <HomeIcon className="flex items-center justify-center w-8 text-gray-700"/>
                 </div>
-                <div className="flex justify-center items-center w-4/5 h-12
+                <div className="flex flex-1 justify-center items-center h-12
                 lg:w-1/2">
                     <MobileCreateTransactionDialog
                         tags={tagsData}
@@ -452,7 +468,10 @@ export default function Page({params}: { params: { date: string } }) {
                         setType={setType}
                     />
                 </div>
+                <div className='flex items-center justify-center w-1/5 h-12'>
+                    <ImportCsvDialog handleImportCsv={handleImportCsv}/>
+                </div>
             </header>
-        </div>
+        </main>
     );
 }

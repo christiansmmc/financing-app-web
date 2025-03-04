@@ -65,7 +65,7 @@ const MobileCreateTransactionDialog = ({
         setOpen(true);
     };
 
-    const handleCreateTransaction = (data: CreateTransactionFormData) => {
+    const handleImportCsv = (data: CreateTransactionFormData) => {
         onSubmit(data);
         setOpen(false);
     };
@@ -87,7 +87,7 @@ const MobileCreateTransactionDialog = ({
                         Adicione um novo gasto
                     </DialogTitle>
                 </DialogHeader>
-                <form onSubmit={handleSubmit(handleCreateTransaction)}>
+                <form onSubmit={handleSubmit(handleImportCsv)}>
                     <div className="flex flex-col gap-5 mt-2">
                         <div>
                             <div>
