@@ -1,6 +1,5 @@
 'use client'
 
-import {Button} from "@/components/ui/button";
 import {useRouter} from "next/navigation";
 
 export default function Home() {
@@ -22,7 +21,7 @@ export default function Home() {
                     </div>
                     <div className="flex items-center justify-center w-32 h-10 cursor-pointer p-3 rounded-md transition-all duration-300 ease-in-out active:scale-95 bg-slate-900 text-white
                     hover:bg-gray-700"
-                    onClick={() => router.push("/register")}>
+                         onClick={() => router.push("/register")}>
                         Crie sua conta
                     </div>
                 </div>
